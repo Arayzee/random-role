@@ -189,12 +189,12 @@
         div.style.fontSize = "4.8vw"
         div.style.fontWeight = "bold"
         div.innerHTML = `<div
-              style="display: inline-block; height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: ${x.color} ${x.color} transparent  transparent;">
+              style="height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: ${x.color} ${x.color} transparent  transparent;">
             </div>
-            <div style="height: 8; background: ${x.color}; color: #fff; line-height: 8vw;">
+            <div style="height: 8vw; background: ${x.color}; color: #fff; line-height: 8vw;">
               ${x.name}</div>
             <div
-              style="display: inline-block; height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: transparent transparent ${x.color} ${x.color};">
+              style="height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: transparent transparent ${x.color} ${x.color};">
             </div>
             <div style="flex: 1; border-bottom: 0.8vw dashed ${x.color}; text-align: center; padding-top: 0.8vw;">
               ${x.type === "color" ? "<span style='color: rgb(" + color.text + ")'" + ">⬤ </span>" + "<span> (" + color.text + ")</span>" : "<span>" + x.value[index] + "</span>"}</div>`
