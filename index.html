@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+  <title>绘次元裂隙</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .main {
+      height: 100%;
+      background: rgb(103, 203, 219);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start {
+      width: 50vw;
+      height: 50vw;
+      background: rgb(249, 196, 38);
+      border: 2.8vw solid #333639;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 1.8s;
+    }
+
+    #font {
+      font-size: 12vw;
+      font-weight: bold;
+      color: #333639;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .mask {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .content {
+      height: 90vh;
+      width: 90vw;
+      border: 2.8vw solid #333639;
+      background: #fff;
+      transform: translateY(-100vh);
+      border-radius: 8vw;
+      transition: all 0.6s;
+      color: #333639;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scale {
+      transform: scale(16);
+    }
+
+    .disp {
+      opacity: 0;
+    }
+
+    .drop {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="start">
+      <div id="font">STRAT</div>
+    </div>
+    <div class="mask">
+      <div class="content">
+        <div
+          style="border-bottom: 1.2vw #333639 solid; padding: 1.5vw; letter-spacing: 0.8vw; text-align: center; font-size: 6vw; font-weight: bold">
+          <span>角</span><span style="color: rgb(255, 65, 97)">色</span><span>档案</span>
+        </div>
+        <div style="flex: 1; overflow: auto;" id="text">
+          <!-- <div style="display: flex; margin: 3vw 5vw; font-size: 4.8vw;">
+            <div
+              style="display: inline-block; height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: #000 #000 transparent  transparent;">
+            </div>
+            <div style="height: 8; background: #000; color: #fff; line-height: 8vw;">
+              性别</div>
+            <div
+              style="display: inline-block; height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: transparent transparent #000 #000;">
+            </div>
+            <div style="flex: 1; border-bottom: 0.8vw dashed #000; text-align: center; padding-top: 0.8vw;">
+              <span>男</span></div>
+          </div> -->
+        </div>
+        <div
+          style="display: flex; justify-content: space-between; color: #333639; font-size: 5.5vw; font-weight: bold; padding: 3vw; border-top: 1.2vw #333639 solid;">
+          <div id="back" style="margin-left: 3vw;">返回</div>
+          <div id="re" style="margin-right: 3vw;">重新<span style="color: rgb(93, 193, 209)">生</span>成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let data = [
+      { type: "normal", color: "#f2c311", name: "性别", value: ["男性", "女性"] },
+      { type: "normal", color: "#e84c3d", name: "年龄", value: ["幼年", "少年", "成年"] },
+      { type: "normal", color: "#2dcc70", name: "职业", value: ["学生", "老师", "店员", "剑士", "牧师", "法师", "盾娘", "猎人", "文员", "水手", "机械师", "乐师", "厨师", "贤者"] },
+      { type: "normal", color: "#3699dc", name: "性格", value: ["傲娇", "三无", "元气", "娇羞", "女王", "弱气", "天然呆", "悠闲", "乐天", "顽皮", "冷静", "温和", "急躁", "腹黑"] },
+      { type: "normal", color: "#9a59b5", name: "星座", value: ["白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座"] },
+      { type: "normal", color: "#6e4a39", name: "背景", value: ["当代", "未来", "古代"] },
+      { type: "normal", color: "#34495e", name: "生态", value: ["现实", "异域", "森林", "海底", "天空", "魔界", "贵族", "雪地"] },
+      { type: "color", color: "#f35b68", name: "主题色1", value: null },
+      { type: "color", color: "#f47822", name: "主题色2", value: null }
+    ]
+    let start = document.getElementsByClassName("start")[0]
+    let font = document.getElementById("font")
+    let content = document.getElementsByClassName("content")[0]
+    let mask = document.getElementsByClassName("mask")[0]
+    let back = document.getElementById("back")
+    let re = document.getElementById("re")
+    let text = document.getElementById("text")
+    start.addEventListener("click", () => {
+      start.classList.add("scale")
+      font.classList.add("disp")
+      mask.style.display = "flex"
+      create()
+      setTimeout(() => {
+        content.classList.add("drop")
+      }, 0)
+    })
+    back.addEventListener("click", () => {
+      start.style.transition = "all 0.6s"
+      start.classList.remove("scale")
+      font.classList.remove("disp")
+      content.classList.remove("drop")
+      setTimeout(() => {
+        text.innerHTML = ""
+        mask.style.display = "none"
+        start.style.transition = "all 1.8s"
+      }, 600)
+    })
+    re.addEventListener("click", () => {
+      content.style.transition = "all 0.3s"
+      content.classList.remove("drop")
+      setTimeout(() => {
+        text.innerHTML = ""
+        create()
+        content.classList.add("drop")
+        start.style.transition = "all 0.6s"
+      }, 300)
+    })
+
+    function create() {
+      data.forEach(x => {
+        let color = {}
+        let index = null
+        if (x.type === "color") {
+          color.r = Math.floor(Math.random() * 256)
+          color.g = Math.floor(Math.random() * 256)
+          color.b = Math.floor(Math.random() * 256)
+          color.text = `${color.r}, ${color.g}, ${color.b}`
+        } else {
+          index = Math.floor(Math.random() * x.value.length)
+        }
+        let div = document.createElement('div')
+        div.style.display = "flex"
+        div.style.margin = "3vw 5vw"
+        div.style.fontSize = "4.8vw"
+        div.style.fontWeight = "bold"
+        div.innerHTML = `<div
+              style="display: inline-block; height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: ${x.color} ${x.color} transparent  transparent;">
+            </div>
+            <div style="height: 8; background: ${x.color}; color: #fff; line-height: 8vw;">
+              ${x.name}</div>
+            <div
+              style="display: inline-block; height: 0; width: 0; border-width: 4vw 1.6vw 4vw 1.6vw; border-style: solid; border-color: transparent transparent ${x.color} ${x.color};">
+            </div>
+            <div style="flex: 1; border-bottom: 0.8vw dashed ${x.color}; text-align: center; padding-top: 0.8vw;">
+              ${x.type === "color" ? "<span style='color: rgb(" + color.text + ")'" + ">⬤ </span>" + "<span> (" + color.text + ")</span>" : "<span>" + x.value[index] + "</span>"}</div>`
+        text.appendChild(div)
+      });
+    }
+  </script>
+</body>
+
+</html>
